@@ -1,0 +1,11 @@
+{
+  "name": "learning/loan",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "App\\Modules\\Loan\\ServiceProviders\\RouteServiceProvider",
+        "App\\Modules\\Loan\\ServiceProviders\\LoanServiceProvider"
+      ]
+    }
+  }
+}

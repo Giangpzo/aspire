@@ -1,0 +1,3 @@
+id,name,email,type,password
+1,admin,admin@gmail.com,0,123456
+2,customer,customer@gmail.com,2,123456
