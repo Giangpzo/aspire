@@ -81,8 +81,6 @@ class IndexTest extends LoanTestCase
         $listRepaymentsUrl = $this->calculateActualUrl($loan);
         $response = $adminHttp->get($listRepaymentsUrl);
 
-        $response->dump('data');
-
         $response->assertOk();
         $this->assertCount(3, data_get($response->json(), 'data'));
     }
