@@ -2,10 +2,7 @@
 
 namespace Tests\Unit\Loan\Jobs;
 
-use App\Modules\Auth\Models\User;
-use App\Modules\Loan\DataProvider\LoanDataProvider;
 use App\Modules\Loan\Jobs\RepaymentGeneratingJob;
-use App\Modules\Loan\Models\Loan;
 use App\Modules\Loan\Models\ScheduledRepayment;
 use Tests\Unit\Loan\LoanTestCase;
 

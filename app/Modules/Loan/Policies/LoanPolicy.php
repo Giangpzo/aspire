@@ -20,7 +20,7 @@ class LoanPolicy
             return true;
         }
 
-        if ($user->is_customer && $loan->customer_id == auth()->id()) {
+        if ($user->is_customer && $loan->customer_id == $user->id) {
             return true;
         }
 
