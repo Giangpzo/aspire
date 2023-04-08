@@ -1,0 +1,504 @@
+{
+	"info": {
+		"_postman_id": "fd063151-cd13-4d53-a642-7f497548f776",
+		"name": "ASPIRE",
+		"description": "Aspire coding challenge\n\nEnvironment config:\n\nbase_url: [http://localhost:8085/api/v1](http://localhost:8085/api/v1)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9771059"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// 把responseBody转为json字符串",
+									"var data = JSON.parse(responseBody);",
+									"",
+									"console.log(data);",
+									"",
+									"// 设置环境变量token，供后面的接口引用",
+									"pm.environment.set(\"token\", data.data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "admin@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "customer@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "customer2@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login"
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "giangpzo@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "giangpzo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Logout"
+					},
+					"response": []
+				},
+				{
+					"name": "get me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						},
+						"description": "View authenticated user's info"
+					},
+					"response": []
+				}
+			],
+			"description": "Use this module for authenticate user. we have two kinds of user: admin and customer"
+		},
+		{
+			"name": "Loan",
+			"item": [
+				{
+					"name": "Scheduled repayment",
+					"item": [
+						{
+							"name": "repayments",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/loans/1/scheduled-repayment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"loans",
+										"1",
+										"scheduled-repayment"
+									],
+									"query": [
+										{
+											"key": "per_page",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Get repayments of specific loan"
+							},
+							"response": []
+						},
+						{
+							"name": "repay",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "amount",
+											"value": "4001",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/loans/1/scheduled-repayment/4/repay",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"loans",
+										"1",
+										"scheduled-repayment",
+										"4",
+										"repay"
+									]
+								},
+								"description": "Customer repay the repayment"
+							},
+							"response": []
+						}
+					],
+					"description": "Focus on scheduled repayments"
+				},
+				{
+					"name": "Loans",
+					"item": [
+						{
+							"name": "request loan",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "amount",
+											"value": "15000",
+											"type": "text"
+										},
+										{
+											"key": "term",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/loans/request-loan",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"loans",
+										"request-loan"
+									]
+								},
+								"description": "Customer request loan"
+							},
+							"response": []
+						},
+						{
+							"name": "all-loans",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/loans",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"loans"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								},
+								"description": "List all loans.\n\nadmin: list all loans\n\ncustomer: only list owned loans"
+							},
+							"response": []
+						},
+						{
+							"name": "show",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/loans/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"loans",
+										"1"
+									]
+								},
+								"description": "Show loan's details"
+							},
+							"response": []
+						},
+						{
+							"name": "approve",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/loans/1/approve?notes=test approve",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"loans",
+										"1",
+										"approve"
+									],
+									"query": [
+										{
+											"key": "notes",
+											"value": "test approve"
+										}
+									]
+								},
+								"description": "Admin approve loan request"
+							},
+							"response": []
+						},
+						{
+							"name": "reject",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/loans/1/reject?notes=test reject",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"loans",
+										"1",
+										"reject"
+									],
+									"query": [
+										{
+											"key": "notes",
+											"value": "test reject"
+										}
+									]
+								},
+								"description": "Admin reject loan request"
+							},
+							"response": []
+						}
+					],
+					"description": "Focus on loan"
+				}
+			],
+			"description": "Loan business"
+		}
+	]
+}
