@@ -21,7 +21,7 @@ class RequestLoanRequest extends FormRequest
     {
         return [
             'amount' => ['required', 'integer'],
-            'term' => ['required', 'integer']
+            'term' => ['required', 'integer', 'min:1']
         ];
     }
 }
