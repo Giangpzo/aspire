@@ -59,5 +59,6 @@ Provided three user for testing the api (1 admin and 2 customers).
 - tests folder <br>
     Provided all Feature and Unit test
 
-
+## Remarks
+   - For convenient, I configured QUEUE_CONNECTION=sync, however you can change it to redis (if needed and remember to run queue:work) 
 
