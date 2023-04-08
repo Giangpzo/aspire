@@ -24,7 +24,8 @@ class LoanDataProvider extends DatabaseProvider
      * Approve loan
      *
      * @param Loan $loan
-     * @param $note
+     * @param $notes
+     * @return bool
      */
     public function approveLoan(Loan $loan, $notes)
     {
@@ -39,7 +40,8 @@ class LoanDataProvider extends DatabaseProvider
      * Reject loan
      *
      * @param Loan $loan
-     * @param $note
+     * @param $notes
+     * @return bool
      */
     public function rejectLoan(Loan $loan, $notes)
     {
