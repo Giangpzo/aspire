@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\TModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection as SupportCollection;
 use Tests\TestCase;
 
 class LoanTestCase extends TestCase
@@ -71,5 +72,19 @@ class LoanTestCase extends TestCase
         ]);
 
         return data_get($response->json()['data'], 'token');
+    }
+
+    /**
+     * Check if two collection have same items
+     *
+     * @param SupportCollection $collection1
+     * @param SupportCollection $collection2
+     * @return bool
+     */
+    protected function sameValue(SupportCollection $collection1, SupportCollection $collection2)
+    {
+        $diffItems = $collection1->diff($collection2);
+
+        return $diffItems->isEmpty();
     }
 }
