@@ -2,12 +2,15 @@
 
 namespace App\Modules\Loan\Models;
 
+use App\Modules\Auth\Models\User;
 use App\Modules\Loan\Scopes\LoanScope;
 use Database\Factories\Loan\LoanFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Loan extends Model
 {
@@ -37,6 +40,16 @@ class Loan extends Model
     public function repayments(): HasMany
     {
         return $this->hasMany(ScheduledRepayment::class);
+    }
+
+    /**
+     * Customer
+     *
+     * @return BelongsTo
+     */
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'customer_id', 'id');
     }
 
     /**

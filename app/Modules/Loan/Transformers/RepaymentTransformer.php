@@ -7,6 +7,10 @@ use League\Fractal\TransformerAbstract;
 
 class RepaymentTransformer extends TransformerAbstract
 {
+    protected array $defaultIncludes = [
+        'loan'
+    ];
+
     public function transform(ScheduledRepayment $repayment)
     {
         return [
@@ -18,5 +22,16 @@ class RepaymentTransformer extends TransformerAbstract
             'actual_amount' => $repayment->actual_amount,
             'status' => $repayment->status
         ];
+    }
+
+    public function includeLoan(ScheduledRepayment $repayment)
+    {
+        $loan = $repayment->loan;
+
+        if (!$loan) {
+            return $this->item(null);
+        }
+
+        return $this->item($loan, new LoanShowTransformer());
     }
 }
